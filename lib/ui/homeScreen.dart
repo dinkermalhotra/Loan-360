@@ -37,8 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _dropdownAddressValue = _dropdownAddress![0];
     //_dropdownValue = _dropdownItems![0];
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
