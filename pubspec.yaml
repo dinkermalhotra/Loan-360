@@ -1,0 +1,139 @@
+name: Loan360Cloud
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.1 <3.0.0'
+
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+
+  get: ^4.6.5
+  get_storage: ^2.0.3
+  fl_chart: ^0.55.1
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  # rules and activating additional ones.
+  flutter_lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+  assets:
+    - assets/login_logo.png
+    - assets/splash.png
+    - assets/user.png
+    - assets/password.png
+    - assets/menu.png
+    - assets/right_arrow.png
+    - assets/statement_account.png
+    - assets/field_investigation.png
+    - assets/address.png
+    - assets/update_photo.png
+    - assets/docs_upload.png
+    - assets/lead_manage.png
+    - assets/promise_to_pay.png
+    - assets/settings.png
+    - assets/update_mobile.png
+    - assets/jaguar.png
+    - assets/dealer_messages.png
+    - assets/receipt_form.png
+    - assets/due_list.png
+    - assets/report.png
+    - assets/update_app.png
+    - assets/logout.png
+    - assets/screenshot.png
+    - assets/seach_gray.png
+    - assets/upload.png
+    - assets/calendar.png
+    - assets/updated.png
+    - assets/map.png
+    - assets/back.png
+    - assets/asset.png
+    - assets/customer.png
+    - assets/receipt.png
+    - assets/print.png
+    - assets/phone.png
+    - assets/verified.png
+    - assets/camera.png
+    - assets/upload_file.png
+    - assets/add.png
+    - assets/add_contact.png
+    - assets/mic.png
+    - assets/cross.png
+    - assets/voice.png
+
+
+
+  fonts:
+     - family: Montserrat
+       fonts:
+         - asset: fontStyle/Montserrat-Bold.ttf
+         - asset: fontStyle/Montserrat-ExtraBold.ttf
+         - asset: fontStyle/Montserrat-Light.ttf
+         - asset: fontStyle/Montserrat-Medium.ttf
+         - asset: fontStyle/Montserrat-Regular.ttf
+         - asset: fontStyle/Montserrat-SemiBold.ttf
+         - asset: fontStyle/Montserrat-Thin.ttf
+
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages

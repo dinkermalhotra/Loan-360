@@ -1,0 +1,156 @@
+
+class CommonText{
+
+  static String logoName = 'JAGUAR';
+  static String companyName ='SOFTWARE INDIA';
+  static String appName ='Loan 360\u00B0 Cloud';
+  static String loginName = 'Login';
+  static String loginText = 'Please sign in to continue';
+  static String appTitle = 'Jaguar';
+  static String demoUserWame = 'Welcome to S Singh';
+  static String updateAddressTitle = 'Update Address';
+  static String updatePhotoSignTitle = 'Update Photo & Sign';
+  //static String fieldInvestigationTitle = 'Cash Deposit';
+  static String cashDeposit = 'Cash Deposit';
+  static String financialYear = 'Financial Year';
+  static String fieldInvestigation = 'Field Investigation';
+  static String statementofAccount = 'Statement of Account';
+  static String docsUpload = 'Docs Upload';
+  static String leadManagement = 'Lead Management';
+  static String promiseToPay = 'Promise To Pay';
+  static String updateSmall = 'Update';
+  static String map = 'Map';
+  static String branch = 'Branch';
+  static String setting = 'Settings';
+  static String setOffline = 'Set Offline Password';
+  static String appStatementSearch = 'Search';
+  static String select = 'Select';
+  static String delearMessage = 'Dealer Messages';
+  static String jaguar = 'Jaguar';
+  static String dueList = 'Due List';
+  static String loan = 'Loan';
+  static String specialAssign = 'Specially Assigned Loans';
+  static String product = 'PRODUCT';
+  static String sale = 'SALE EXEC';
+  static String sortBy = 'SORT BY';
+  static String balances = 'Balances';
+  static String receipt = 'Receipt';
+  static String receiveTotalAmount = 'Received Total Amount';
+  static String rupeeSign = '\u{20B9}';
+  static String print = 'Print';
+  static String appNo = 'APP NO.';
+  static String amount = 'AMOUNT';
+  static String report = 'Report';
+  static String updateMobile = 'Update Mobile';
+  static String emiText = 'EMI';
+  static String overDue = 'OVERDUE';
+  static String nidText = 'NID';
+  static String totalBalance = 'TOTAL BAlANCE';
+  static String narration = 'NARRATION';
+  static String receiptMode = 'RECEIPT MODE';
+  static String paymentName = 'PAYMENT NAME';
+  static String paymentMobile = 'PAYMENT MOBILE';
+  static String verifiedBy = 'VERIFIED BY';
+  static String verifiedOn = 'VERIFIED ON';
+  static String file = 'FILE';
+  static String receiptDate = 'RECEIPT DATE.';
+  static String receiptNo = 'RECEIPT NO.';
+  static String receiptAmount = 'RECEIPT AMOUNT';
+  static String documentAttachment = 'Document Attachments';
+
+  //static String customer = 'Customer';
+  //static String asset = 'Asset';
+
+
+
+
+  static String Try = 'TRY 86';
+  static String name = 'NAME';
+  static String type = 'TYPE';
+  static String linkedAs = 'LINKED AS';
+  static String category = 'CATEGORY';
+  static String address = 'ADDRESS';
+  static String mobile = 'MOBILE';
+  static String mobile1 = 'Mobile 1';
+  static String mobile2 = 'Mobile 2';
+  static String emailId = 'EMAIL ID';
+  static String status = 'STATUS';
+  static String assigned = 'ASSIGNED';
+  static String assignedOn  = 'ASSIGNED ON';
+  static String assignedby  = 'ASSIGNED By';
+  static String applicable  = 'APPLICABLE FOR';
+  static String documentCode  = 'DOCUMENT CODE';
+  static String remarks  ='REMARKS';
+  static String fromDate  = 'FROM DATE';
+  static String toDate = 'TO DATE';
+  static String loanNo = 'LOAN NO.';
+  static String search = 'SEARCH';
+  static String description = 'DESCRIPTION';
+  static String reminderDate = 'REMINDER DATE';
+  static String entryDate = 'ENTRY DATE';
+  static String onDate = 'AS ON DATE';
+  static String asset = 'Asset';
+  static String appDate = 'APP DATE';
+  static String loanAmount = 'LOAN AMOUNT';
+  static String loanType = 'LOAN TYPE';
+  static String vehicle = 'VEHICLE NO.';
+  static String account = 'ACCOUNT';
+  static String balance = 'Balance';
+  static String uploadReceipt = 'UPLOAD RECEIPT';
+  static String installmentDue = 'INSTALLMENT OVER DUE';
+  static String depositHistory = 'Deposit History';
+  static String depositOn= 'DEPOSITED ON';
+  static String verified = 'VERIFIED';
+  static String subject = 'SUBJECT';
+  static String important = 'IMPORTANT';
+  static String location  = 'LOCATION';
+  static String login  = 'L0GIN';
+  static String customerUpperCaseText  = 'CUSTOMER';
+  static String phone  = 'PHONE';
+  static String expireOn  = 'EXPIRES ON';
+  static String residenceReport  = 'RESIDENCE VERIFICATION REPORT';
+  static String applicationRefNo  = 'APPLICATION REF NO.';
+  static String agencyName  = 'AGENCY NAME';
+  static String applicationName  = "APPLICATION'S NAME";
+  static String residenceAddress  = 'RESIDENCE ADDRESS';
+  static String landMark  = 'LANDMARK';
+  static String dateOfVisit  = 'DATE OF VISIT';
+  static String timeOfVisit  = 'TIME OF VISIT';
+  static String uploadFIinformation  = 'The following Information Is to be obtained from the application or anybody residing at the address:';
+  static String personContacted  = 'PERSON CONTACTED';
+  static String relationApplicant  = 'RELATION WITH APPLICANT';
+
+
+
+
+  static String customer = 'Customer';
+  static String company  = 'Company';
+  static String checkBoxText= 'If the location is checked. it will store the current location of the your device';
+  static String updateAddress = 'UPDATE ADDRESS';
+  static String reset = 'RESET';
+  static String photo = 'PHOTO';
+  static String signature = 'SIGNATURE';
+  static String refresh = 'REFRESH';
+  static String update = 'UPDATE';
+  static String chooseFile = 'CHOOSE FILE';
+  static String submit = 'SUBMIT';
+  static String searchText = 'SEARCH';
+  static String saveText = 'SAVE';
+  static String saveSmallText = 'Save';
+  static String lastReceipt = 'LAST RECEIPT AMT';
+  static String lastDate = 'LAST RECEIPT DATE';
+  static String receivedAmount = 'Received Amount';
+  static String addOtherAccount = 'ADD OTHER ACCOUNT';
+  static String getReport = 'GET REPORT';
+  static String clear = 'CLEAR';
+  static String childDocument = 'CHILD DOCUMENT';
+  static String originalPhoto = 'ORIGINAL/PHOTO';
+  static String addressConfirmed = 'ADDRESS CONFIRMED';
+  static String dobApplicant = 'DATE OF BIRTH / AGE OF APPLICANT';
+  static String yearLived = 'YEAR LIVED AT CURRENT ADDRESS';
+  static String result = 'RESULT';
+  static String residential  = 'RESIDENTIAL STATUS';
+  static String education  = 'EDUCATION QUALIFICON';
+  static String microPhoneLang  = 'MICRO PHONE LANGUAGE';
+
+}
