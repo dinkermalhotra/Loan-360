@@ -16,7 +16,7 @@ class UpdateFI extends StatefulWidget {
 class _UpdateFIState extends State<UpdateFI> {
 
   static List<Address>? _dropdownAddress = [];
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+
   final formKey = new GlobalKey<FormState>();
 
   // var controller = new MaskedTextController(mask: '(000) 000 0000');
@@ -77,23 +77,18 @@ class _UpdateFIState extends State<UpdateFI> {
 
                     WithoutAstrickText(CommonText.residenceReport),
                     Container(
-                      // width: 320,
                       child: const TextField(
-                        //controller: emailController,
                         obscureText: true,
                         textAlign: TextAlign.left,
                         decoration:  InputDecoration(
                           border: InputBorder.none,
                           hintText: '0',
                           hintStyle: TextStyle(color: Colors.black),
-
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey)
-                            //   borderSide:  BorderSide(color: ),
                           ),
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey)
-                            //  borderSide: BorderSide(color: AppColor.LighGreyColor),
                           ),
                         ),
                       ),
@@ -110,23 +105,18 @@ class _UpdateFIState extends State<UpdateFI> {
 
                     WithoutAstrickText(CommonText.applicationRefNo),
                     Container(
-                      // width: 320,
                       child: const TextField(
-                        //controller: emailController,
                         obscureText: true,
                         textAlign: TextAlign.left,
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: '0',
                           hintStyle: TextStyle(color: Colors.black),
-
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey)
-                            //   borderSide:  BorderSide(color: ),
                           ),
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey)
-                            //  borderSide: BorderSide(color: AppColor.LighGreyColor),
                           ),
                         ),
                       ),

@@ -16,7 +16,7 @@ class DealerMessage extends StatefulWidget {
 class _DealerMessageState extends State<DealerMessage> {
 
   static List<Address>? _dropdownAddress = [];
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+  GlobalKey<ScaffoldState> _key = GlobalKey();
   final formKey = new GlobalKey<FormState>();
 
   // var controller = new MaskedTextController(mask: '(000) 000 0000');
@@ -139,11 +139,9 @@ class _DealerMessageState extends State<DealerMessage> {
                     ),
                   ),
                 ),
-
             ],
           ),
         ),
-
     );
   }
 }

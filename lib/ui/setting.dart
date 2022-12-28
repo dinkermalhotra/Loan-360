@@ -38,16 +38,16 @@ class _SettingState extends State<Setting> {
         }),
       ),
 
+
        body: Container(
          child: Column(
            children: [
 
            Container(
-
              alignment: Alignment.topLeft,
              margin: EdgeInsets.only(left: 15,right: 15,top:20,),
-                   child: Text(CommonText.setOffline.toString(),style: textStyle.Regular.copyWith(),),
-                 ),
+             child: Text(CommonText.setOffline.toString(),style: textStyle.Regular.copyWith(),),
+            ),
 
              Container(
                height: 70,
@@ -57,19 +57,24 @@ class _SettingState extends State<Setting> {
                    Container(
                      child: Row(
                        children: [
+
                          Container(
                            alignment: Alignment.topLeft,
-                           child: Text('ENTER PASSWORD',style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor)),
-
+                           child: Text('ENTER PASSWORD',
+                             style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor),
+                           ),
                          ),
+
                          Container(
                            child: Icon(
                              Icons.star,size: 10,color: Colors.red,
                            ),
-                         )
+                         ),
+
                        ],
                      ),
                    ),
+
                    Container(
                      // width: 320,
                      child:const TextField(
@@ -80,7 +85,6 @@ class _SettingState extends State<Setting> {
                          border: InputBorder.none,
                          hintText: '0',
                          hintStyle: TextStyle(color: Colors.black),
-
                          enabledBorder: UnderlineInputBorder(
                              borderSide: BorderSide(color: Colors.grey)
                            //   borderSide:  BorderSide(color: ),

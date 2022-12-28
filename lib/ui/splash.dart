@@ -1,9 +1,19 @@
 import 'dart:async';
+import 'package:Loan360Cloud/authManager/authManager.dart';
+import 'package:Loan360Cloud/ui/chart.dart';
+import 'package:Loan360Cloud/ui/homeScreen.dart';
+import 'package:Loan360Cloud/ui/jaguar.dart';
 import 'package:Loan360Cloud/ui/loginScreen.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
+import '../amplifyconfiguration.dart';
+import '../controller/companyByLoginController.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -12,22 +22,69 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  AuthenticationManager authenticationManager = Get.put(AuthenticationManager());
+ // CompanyByLoginController controller = Get.put(CompanyByLoginController());
+ /// GetStorage box = GetStorage();
+ /// CompanyByLoginController controller = Get.put(CompanyByLoginController());
+  var token;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration(seconds: 3),(){
+    _configureAmplify();
+    checkPermissionStatus();
 
-      Get.to(()=> LoginScreen());
-    });
-    /*Timer.periodic(const Duration(seconds: 3), (t) {
-
-        if (mounted) {
-          Get.to(()=> LoginScreen());
-        }
-
-    });*/
   }
+
+  void checkPermissionStatus() async{
+    await Permission.locationAlways.request();
+    await Permission.bluetooth.request();
+    await Permission.photos.request();
+    await Permission.camera.request();
+    await Permission.bluetoothConnect.request();
+    await Permission.nearbyWifiDevices.request();
+
+
+    Future.delayed(Duration(seconds: 3),()async{
+      bool data = authenticationManager.checkLoginIdStatus();
+      if(data){
+        bool branchLogin= authenticationManager.checkSaveHomeScreenData();
+        if(branchLogin){
+          //Get.to(()=> DemoBluetooth());
+
+          Get.to(()=> Chart());
+        }else{
+          Get.to(()=> HomeScreen());
+        }
+      }else{
+        Get.to(()=> LoginScreen());
+      }
+    });
+
+  }
+
+  signOut()async{
+    try {
+      authenticationManager.removeUserId();
+      await Amplify.Auth.signOut();
+    } on AuthException catch (e) {
+      print(e.message);
+    }
+  }
+
+  Future<void> _configureAmplify() async {
+    try {
+      final auth = AmplifyAuthCognito();
+      await Amplify.addPlugin(auth);
+
+      // call Amplify.configure to use the initialized categories in your app
+      await Amplify.configure(amplifyconfig);
+    } on Exception catch (e) {
+      safePrint('An error occurred configuring Amplify: $e');
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,23 +96,3 @@ class _SplashScreenState extends State<SplashScreen> {
 }
 
 
-/*
-              Container(
-                child: Text(CommonText.logoName,style:  textStyle.Heading1.copyWith(
-                    color: Colors.white
-                ),
-                ),
-              ),
-
-              Container(
-                child: Text(CommonText.companyName,style:  textStyle.Heading2.copyWith(
-                  color: Colors.grey
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                child: Text(CommonText.appName,style:  textStyle.Heading3.copyWith(
-                    color: Colors.white
-                ),),
-              )*/

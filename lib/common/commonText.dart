@@ -7,6 +7,7 @@ class CommonText{
   static String loginName = 'Login';
   static String loginText = 'Please sign in to continue';
   static String appTitle = 'Jaguar';
+  static String signatureTitle = 'Signature';
   static String demoUserWame = 'Welcome to S Singh';
   static String updateAddressTitle = 'Update Address';
   static String updatePhotoSignTitle = 'Update Photo & Sign';
@@ -20,26 +21,38 @@ class CommonText{
   static String promiseToPay = 'Promise To Pay';
   static String updateSmall = 'Update';
   static String map = 'Map';
+  static String kyc = 'KYC';
+  static String pattern = 'Pattern';
+  static String value = 'Value';
+  static String Lan = 'LAN #';
+  static String Name = 'Name';
+  static String contain= 'Contains';
   static String branch = 'Branch';
   static String setting = 'Settings';
   static String setOffline = 'Set Offline Password';
   static String appStatementSearch = 'Search';
   static String select = 'Select';
+  static String selectType = 'Select Type';
+
   static String delearMessage = 'Dealer Messages';
   static String jaguar = 'Jaguar';
   static String dueList = 'Due List';
   static String loan = 'Loan';
+  static String SortedBy = 'Sort By';
+  static String SelectType= 'Select Type';
   static String specialAssign = 'Specially Assigned Loans';
   static String product = 'PRODUCT';
   static String sale = 'SALE EXEC';
   static String sortBy = 'SORT BY';
   static String balances = 'Balances';
   static String receipt = 'Receipt';
+  static String receiptForm = 'Receipt Form';
   static String receiveTotalAmount = 'Received Total Amount';
   static String rupeeSign = '\u{20B9}';
   static String print = 'Print';
   static String appNo = 'APP NO.';
   static String amount = 'AMOUNT';
+  static String credit = 'CREDIT';
   static String report = 'Report';
   static String updateMobile = 'Update Mobile';
   static String emiText = 'EMI';
@@ -57,7 +70,17 @@ class CommonText{
   static String receiptNo = 'RECEIPT NO.';
   static String receiptAmount = 'RECEIPT AMOUNT';
   static String documentAttachment = 'Document Attachments';
-
+  static String branchText = "BRANCH";
+  static String loanStatus = "LOAN STATUS";
+  static String user = "USER";
+  static String loanAc = "Loan A/c#";
+  static String remark = "REMARK";
+  static String enterAmount = "Enter Amount";
+  static String welcome = "Welcome to";
+  static String month = "Months";
+  static String target = "Target";
+  static String archievement = "Archievement";
+  static String comments  = "Comments";
   //static String customer = 'Customer';
   //static String asset = 'Asset';
 
@@ -89,7 +112,8 @@ class CommonText{
   static String reminderDate = 'REMINDER DATE';
   static String entryDate = 'ENTRY DATE';
   static String onDate = 'AS ON DATE';
-  static String asset = 'Asset';
+  static String asset = 'ASSET';
+  static String relationName = 'RELATION NAME';
   static String appDate = 'APP DATE';
   static String loanAmount = 'LOAN AMOUNT';
   static String loanType = 'LOAN TYPE';
@@ -134,12 +158,16 @@ class CommonText{
   static String update = 'UPDATE';
   static String chooseFile = 'CHOOSE FILE';
   static String submit = 'SUBMIT';
+  static String download = 'Download';
   static String searchText = 'SEARCH';
   static String saveText = 'SAVE';
   static String saveSmallText = 'Save';
   static String lastReceipt = 'LAST RECEIPT AMT';
   static String lastDate = 'LAST RECEIPT DATE';
   static String receivedAmount = 'Received Amount';
+  static String bank = 'Bank';
+  static String totalAmountBalance = 'Total O/S Balance';
+
   static String addOtherAccount = 'ADD OTHER ACCOUNT';
   static String getReport = 'GET REPORT';
   static String clear = 'CLEAR';
@@ -152,5 +180,7 @@ class CommonText{
   static String residential  = 'RESIDENTIAL STATUS';
   static String education  = 'EDUCATION QUALIFICON';
   static String microPhoneLang  = 'MICRO PHONE LANGUAGE';
+
+  static String Codes  = 'A/c Codes';
 
 }

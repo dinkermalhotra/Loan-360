@@ -2,9 +2,12 @@ import 'package:Loan360Cloud/common/appColor.dart';
 import 'package:Loan360Cloud/common/commonAppBar.dart';
 import 'package:Loan360Cloud/common/commonText.dart';
 import 'package:Loan360Cloud/common/drawer.dart';
+import 'package:Loan360Cloud/controller/mobileController.dart';
+import 'package:Loan360Cloud/model/statementModel.dart';
 import 'package:Loan360Cloud/ui/updateAddress.dart';
 import 'package:flutter/material.dart';
 import 'package:Loan360Cloud/common/textStyle.dart';
+import 'package:get/get.dart';
 
 class UpdateMobile extends StatefulWidget {
   const UpdateMobile({Key? key}) : super(key: key);
@@ -14,42 +17,34 @@ class UpdateMobile extends StatefulWidget {
 }
 
 class _UpdateMobileState extends State<UpdateMobile> {
+  MobileController mobileController = Get.put(MobileController());
   String?  _errorText;
-  bool isMan = false;
-  bool isWoman = false;
-  final _address = TextEditingController();
-  Address? _dropdownAddressValue;
-  static List<Address>? _dropdownAddress = [];
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+  TextEditingController customerName = TextEditingController();
+  TextEditingController phoneMobile1 = TextEditingController();
+  TextEditingController phoneMobile2 = TextEditingController();
+  String customerId='';
+  String loanId='';
+  final search = TextEditingController();
+  GlobalKey<ScaffoldState> _mobileUpdatekey = GlobalKey();
   final formKey = new GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _dropdownAddress!.add(Address(addressCode: 'Select'));
-    _dropdownAddressValue = _dropdownAddress![0];
-
-
-    //_dropdownValue = _dropdownItems![0];
-  }
 
   
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size.width;
     return Scaffold(
-      key: _key,
+      key: _mobileUpdatekey,
       drawer: Drawer(
         child: DrawerScreen(),
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: appBar(appBarName:CommonText.updateMobile.toString(),onPressed: (){
-          if (_key.currentState != null) {
-            if (_key.currentState!.isDrawerOpen) {
-              _key.currentState!.closeDrawer();
+          if (_mobileUpdatekey.currentState != null) {
+            if (_mobileUpdatekey.currentState!.isDrawerOpen) {
+              _mobileUpdatekey.currentState!.closeDrawer();
             } else {
-              _key.currentState!.openDrawer();
+              _mobileUpdatekey.currentState!.openDrawer();
             }
           }
         }),
@@ -59,53 +54,84 @@ class _UpdateMobileState extends State<UpdateMobile> {
           children: [
             Container(
               margin: EdgeInsets.only(left: 15,right: 15,top:30,),
-              //   margin: EdgeInsets.only(top:30,),
               width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    //  margin: EdgeInsets.only(left: 10,right: 10,top:30,),
-                    width: 300,
+                    width: size * 0.77,
                     height: 50,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        prefixIcon:Icon(Icons.search, color: Colors.grey,size: 30,),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(40)),
-                          borderSide: BorderSide(color:AppColor.GreyColor, width: 1.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(40)),
-                          borderSide: BorderSide(color:AppColor.GreyColor, width: 1.0),
-                        ),
-                        hintText: 'Loan A/c#',
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColor.GreyColor),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(30.0)
                       ),
                     ),
+                    child:Row(
+                      children: [
+                        Container(
+                            height: 50,
+                            width: 50,
+                            child: Icon(Icons.search, color: Colors.grey,size: 25,)
+                        ),
+
+                        Container(
+                          height: 50,
+                          width: size*0.6,
+                          child: TextField(
+                            controller: search,
+                            decoration:const InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: 'Loan A/c#',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    child: Icon(Icons.search, color: Colors.white,size: 30,),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColor.ThemeColor,
+
+                  InkWell(
+                    onTap: (){
+                      print("search"+search.value.text.toString());
+                      Get.delete<MobileController>();
+                      mobileController.statmentSearch(searchLoanNo:search.value.text.toString());
+                      customerName.clear();
+                      phoneMobile1.clear();
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      child: Icon(Icons.search, color: Colors.white,size: 30,),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColor.ThemeColor,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
 
-            Container(
-              height: 70,
-              margin: EdgeInsets.only(left: 15,right: 15,top:20,),
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: Text(CommonText.customer,style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor)),
-                  ),
-                  Container(
+
+            Obx(()=> mobileController!.loading.value?
+             Container(
+              margin: EdgeInsets.only(top: 10),
+              child: CircularProgressIndicator(),
+               ) : Container(
+                height: 70,
+                 margin: EdgeInsets.only(left: 15,right: 15,top:20,),
+                child: Column(
+                 children: [
+                   Container(
+                     alignment: Alignment.topLeft,
+                     child: Text(CommonText.customer,style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor)),
+                   ),
+
+                 /* Container(
                     child: FormField(
                       builder: (FormFieldState state) {
                         return DropdownButtonHideUnderline(
@@ -119,25 +145,31 @@ class _UpdateMobileState extends State<UpdateMobile> {
                                   hintStyle: TextStyle(color: Colors.black),
                                   errorText: _errorText,
                                 ),
-                                isEmpty: _dropdownAddress == null,
-                                child:  DropdownButton<Address>(
+                                isEmpty: mobileController.dropdownAddress == null,
+                                child:  DropdownButton<loadData>(
                                   icon: Icon(
                                     Icons.keyboard_arrow_down,
                                     color:AppColor.GreyColor,
                                     size: 20.09,
                                   ),
-                                  value: _dropdownAddressValue,
+                                  value: mobileController.dropdownAddressValue,
                                   isDense: true,
-                                  onChanged: (Address? newValue) {
+                                  onChanged: (loadData? newValue) {
                                     setState(() {
-                                      _dropdownAddressValue = newValue;
-                                      _address.text = _dropdownAddressValue!.addressCode!;
+                                      mobileController.dropdownAddressValue = newValue;
+                                      customerName.text = mobileController!.dropdownAddressValue!.toString();
+                                      customerId = newValue!.customerId.toString();
+                                      loanId = newValue!.id.toString();
+                                      if(newValue!.mobile != null){
+                                        phoneMobile1.text = newValue!.mobile.toString();
+                                      }
+
                                     });
                                   },
-                                  items: _dropdownAddress!.map((Address value) {
-                                    return DropdownMenuItem<Address>(
+                                  items: mobileController.dropdownAddress!.map((loadData? value) {
+                                    return DropdownMenuItem<loadData>(
                                       value: value,
-                                      child: Text(value!.addressCode.toString()),
+                                      child: Text(value!.name.toString()),
                                     );
                                   }).toList(),
                                 ),
@@ -147,45 +179,11 @@ class _UpdateMobileState extends State<UpdateMobile> {
                         );
                       },
                     ),
-                  ),
+                  ),*/
                 ],
-              ),
-            ),
-
-
-            /*Container(
-              height: 70,
-              margin: EdgeInsets.only(left: 15,right: 15,top:20,),
-              child:Column(
-                children: [
-
-                  CommonAstrickText(CommonText.customer),
-                  Container(
-                    // width: 320,
-                    child: const TextField(
-                      //controller: emailController,
-                      obscureText: true,
-                      textAlign: TextAlign.left,
-                      decoration:  InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '0',
-                        hintStyle: TextStyle(color: Colors.black),
-
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)
-                          //   borderSide:  BorderSide(color: ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)
-                          //  borderSide: BorderSide(color: AppColor.LighGreyColor),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                ],
-              ) ,
-            ),*/
+               ),
+             ),
+           ),
 
             Container(
               height: 70,
@@ -195,15 +193,13 @@ class _UpdateMobileState extends State<UpdateMobile> {
                   WithoutAstrickText(CommonText.mobile1),
                   Container(
                     // width: 320,
-                    child:const TextField(
-                      //controller: emailController,
-                      obscureText: true,
+                    child: TextField(
+                     controller: phoneMobile1,
                       textAlign: TextAlign.left,
-                      decoration:  InputDecoration(
+                      decoration:  const InputDecoration(
                         border: InputBorder.none,
-                        hintText: '0',
-                        hintStyle: TextStyle(color: Colors.black),
-
+                        hintText: '+91',
+                        hintStyle: TextStyle(color: Colors.grey),
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey)
                           //   borderSide:  BorderSide(color: ),
@@ -212,12 +208,9 @@ class _UpdateMobileState extends State<UpdateMobile> {
                             borderSide: BorderSide(color: Colors.grey)
                           //  borderSide: BorderSide(color: AppColor.LighGreyColor),
                         ),
-
-
                       ),
                     ),
                   ),
-
                 ],
               ) ,
             ),
@@ -231,14 +224,14 @@ class _UpdateMobileState extends State<UpdateMobile> {
 
                   Container(
                     // width: 320,
-                    child:const TextField(
-                      //controller: emailController,
-                      obscureText: true,
+                    child: TextField(
+                      controller: phoneMobile2,
+
                       textAlign: TextAlign.left,
-                      decoration:  InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: '0',
-                        hintStyle: TextStyle(color: Colors.black),
+                        hintText: '+91',
+                        hintStyle: TextStyle(color: Colors.grey),
 
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey)
@@ -248,12 +241,9 @@ class _UpdateMobileState extends State<UpdateMobile> {
                             borderSide: BorderSide(color: Colors.grey)
                           //  borderSide: BorderSide(color: AppColor.LighGreyColor),
                         ),
-
-
                       ),
                     ),
                   ),
-
                 ],
               ) ,
             ),
@@ -266,6 +256,17 @@ class _UpdateMobileState extends State<UpdateMobile> {
                   Expanded(
                     child: InkWell(
                       onTap: (){
+                        if(customerName.text.isNotEmpty){
+                          mobileController.mobileUpdateResponseData(MobileNo1:phoneMobile1.text,MobileNo2: phoneMobile2.text,LoanId: loanId,CustomerId:customerId);
+                        }else{
+                          Get.defaultDialog(
+                              middleText: "Please select customer name",
+                              textConfirm: 'OK',
+                              confirmTextColor: Colors.white,
+                              onConfirm: () {
+                                Get.back();
+                              });
+                        }
 
                       },
                       child: Container(

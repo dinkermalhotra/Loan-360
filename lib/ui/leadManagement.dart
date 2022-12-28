@@ -13,23 +13,23 @@ class LeadManagement extends StatefulWidget {
 
 class _LeadManagementState extends State<LeadManagement> {
 
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+  GlobalKey<ScaffoldState> leadManagementKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key:  _key,
+      key:  leadManagementKey,
       drawer: Drawer(
         child: DrawerScreen(),
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: appBar(appBarName:CommonText.leadManagement.toString(),onPressed: (){
-          if (_key.currentState != null) {
-            if (_key.currentState!.isDrawerOpen) {
-              _key.currentState!.closeDrawer();
+          if (leadManagementKey.currentState != null) {
+            if (leadManagementKey.currentState!.isDrawerOpen) {
+              leadManagementKey.currentState!.closeDrawer();
             } else {
-              _key.currentState!.openDrawer();
+              leadManagementKey.currentState!.openDrawer();
             }
           }
         }),

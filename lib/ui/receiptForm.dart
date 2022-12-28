@@ -2,11 +2,13 @@ import 'package:Loan360Cloud/common/appColor.dart';
 import 'package:Loan360Cloud/common/commonAppBar.dart';
 import 'package:Loan360Cloud/common/commonText.dart';
 import 'package:Loan360Cloud/common/drawer.dart';
+
 import 'package:Loan360Cloud/ui/receiptLoadDetail.dart';
 import 'package:flutter/material.dart';
-
 import 'package:Loan360Cloud/common/textStyle.dart';
 import 'package:get/get.dart';
+
+
 class ReceiptForm extends StatefulWidget {
   const ReceiptForm({Key? key}) : super(key: key);
 
@@ -16,27 +18,29 @@ class ReceiptForm extends StatefulWidget {
 
 class _ReceiptFormState extends State<ReceiptForm> {
   final dateTo = TextEditingController();
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+ GlobalKey<ScaffoldState> receiptFormkey = GlobalKey();
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key:  _key,
-      drawer: Drawer(
-        child: DrawerScreen(),
+      key:  receiptFormkey,
+      drawer: const Drawer(
+         child: DrawerScreen(),
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: appBar(appBarName:CommonText.receipt.toString(),onPressed: (){
-          if (_key.currentState != null) {
-            if (_key.currentState!.isDrawerOpen) {
-              _key.currentState!.closeDrawer();
+        title: appBar(appBarName:CommonText.receipt.toString(), onPressed: (){
+          if (receiptFormkey.currentState != null) {
+            if (receiptFormkey.currentState!.isDrawerOpen) {
+              receiptFormkey.currentState!.closeDrawer();
             } else {
-              _key.currentState!.openDrawer();
+              receiptFormkey.currentState!.openDrawer();
             }
           }
         }),
       ),
+
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -45,32 +49,30 @@ class _ReceiptFormState extends State<ReceiptForm> {
                 height: 90,
                 margin: EdgeInsets.only(left: 15,right: 15,top:20,),
                 child:Column(
-
                   children: [
                     Container(
                       child: Row(
                         children: [
                           Container(
                             alignment: Alignment.topLeft,
-                            child: Text(CommonText.fromDate,style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor)),
-
+                            child: Text(CommonText.fromDate,
+                              style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor),
+                            ),
                           ),
+
                           Container(
-                            child: Icon(
+                            child: const Icon(
                               Icons.star,size: 10,color: Colors.red,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
 
                     Container(
-
-                      // margin: EdgeInsets.only(bottom: 10),
                       child: Column(
                         children: [
                           Container(
-
                             child: Row(
                               children: [
                                 Container(
@@ -78,7 +80,7 @@ class _ReceiptFormState extends State<ReceiptForm> {
                                   child: TextField(
                                     controller: dateTo,
                                     textAlign: TextAlign.left,
-                                    decoration:  InputDecoration(
+                                    decoration: const InputDecoration(
                                         border: InputBorder.none,
                                         hintText: '01-10-2020',
                                         hintStyle: TextStyle(color: Colors.black),
@@ -90,26 +92,23 @@ class _ReceiptFormState extends State<ReceiptForm> {
 
                                 Container(
                                   child: Image.asset('assets/calendar.png',height: 20,width: 20,),
-                                )
+                                ),
                               ],
                             ),
                           ),
                           Container(
-                            // width: 320,
                             child: Divider(
                               thickness: 2.0,
                               color: AppColor.LighGreyColor,
                             ),
-                          )
-
+                          ),
                         ],
                       ),
                     ),
-
-
                   ],
-                ) ,
+                ),
               ),
+
               Container(
                 height: 90,
                 margin: EdgeInsets.only(left: 15,right: 15,top:10,),
@@ -120,11 +119,11 @@ class _ReceiptFormState extends State<ReceiptForm> {
                         children: [
                           Container(
                             alignment: Alignment.topLeft,
-                            child: Text(CommonText.toDate,style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor)),
-
+                            child: Text(CommonText.toDate,style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor),
+                            ),
                           ),
                           Container(
-                            child: Icon(
+                            child:const Icon(
                               Icons.star,size: 10,color: Colors.red,
                             ),
                           )
@@ -132,14 +131,10 @@ class _ReceiptFormState extends State<ReceiptForm> {
                       ),
                     ),
 
-
                     Container(
-
-                      // margin: EdgeInsets.only(bottom: 10),
                       child: Column(
                         children: [
                           Container(
-
                             child: Row(
                               children: [
                                 Container(
@@ -147,7 +142,7 @@ class _ReceiptFormState extends State<ReceiptForm> {
                                   child: TextField(
                                     controller: dateTo,
                                     textAlign: TextAlign.left,
-                                    decoration:  InputDecoration(
+                                    decoration: const InputDecoration(
                                         border: InputBorder.none,
                                         hintText: '21-10-2020',
                                         hintStyle: TextStyle(color: Colors.black),
@@ -163,20 +158,20 @@ class _ReceiptFormState extends State<ReceiptForm> {
                               ],
                             ),
                           ),
+
                           Container(
-                            // width: 320,
                             child: Divider(
                               thickness: 2.0,
                               color: AppColor.LighGreyColor,
                             ),
-                          )
-
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ) ,
               ),
+
               Container(
                  margin: EdgeInsets.only(top: 10,left: 10,right: 10),
                 child: Row(
@@ -186,18 +181,15 @@ class _ReceiptFormState extends State<ReceiptForm> {
                       child: InkWell(
                         onTap: (){
 
-
                         },
                         child: Container(
-
                           margin: EdgeInsets.only(right: 5),
                           padding: EdgeInsets.all(17),
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: AppColor.ThemeColor,
                             borderRadius: BorderRadius.all(Radius.circular(40)),
-                          ),
-
+                           ),
                           child: Text(CommonText.refresh.toUpperCase(),textAlign: TextAlign.center, style: textStyle.RegularBold.copyWith(color: Colors.white,fontWeight: FontWeight.w700,),
                           ),
                         ),
@@ -209,17 +201,15 @@ class _ReceiptFormState extends State<ReceiptForm> {
 
                         },
                         child: Container(
-                          //decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [AppColor.ThemeColor, AppColor.ThemeColor.withOpacity(0.5)])),
                           margin: EdgeInsets.only(left: 5),
                           padding: EdgeInsets.all(17),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            // gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [AppColor.ThemeColor, AppColor.ThemeColor.withOpacity(0.5)])
                             color: AppColor.LighGreyColor,
                             borderRadius: BorderRadius.all(Radius.circular(40)),
                           ),
-
                           child: Text(CommonText.reset.toUpperCase(),textAlign: TextAlign.center, style: textStyle.RegularBold.copyWith(color: Colors.black,fontWeight: FontWeight.w700,),
+
                           ),
                         ),
                       ),
@@ -227,8 +217,9 @@ class _ReceiptFormState extends State<ReceiptForm> {
                   ],
                 ),
               ),
+
               Container(
-                  margin: EdgeInsets.only(left: 10,right: 10,top: 10),
+                 margin: EdgeInsets.only(left: 10,right: 10,top: 10),
                 child: Card(
                   elevation: 5,
                   child: Container(
@@ -241,8 +232,9 @@ class _ReceiptFormState extends State<ReceiptForm> {
                       ],
                     ),
                   ),
-                )
+                ),
               ),
+
               Container(
                 margin: EdgeInsets.only(left: 30,top: 10),
                   alignment: Alignment.topLeft,
@@ -308,8 +300,7 @@ class _ReceiptFormState extends State<ReceiptForm> {
                                           child: Container(
                                             child: Text('TRY 38',style: textStyle.Regular.copyWith(color: Colors.black),),
                                           ),
-                                        )
-
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -372,7 +363,6 @@ class _ReceiptFormState extends State<ReceiptForm> {
                                   ),
 
                                   Container(
-
                                     margin: EdgeInsets.only(top:10),
                                     child:  Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -384,32 +374,24 @@ class _ReceiptFormState extends State<ReceiptForm> {
                                           margin: EdgeInsets.only(left: 5),
                                           child: Text(CommonText.print,style: textStyle.Regular.copyWith(color: Colors.red),),
 
-
                                         )
                                       ],
-
                                     ),
-                                  )
-
-
+                                  ),
                                 ],
                               ),
                             ),
                           ),
-                        ),),
+                        ),
+                      ),
                     );
-                  })
-
-
-            ],
+                  }),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
 
 
-
-
-   /// receipt
 
     );
   }

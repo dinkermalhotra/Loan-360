@@ -1,4 +1,6 @@
+import 'package:Loan360Cloud/common/appColor.dart';
 import 'package:Loan360Cloud/common/textStyle.dart';
+
 import 'package:Loan360Cloud/ui/cashDeposit.dart';
 import 'package:Loan360Cloud/ui/dealerMessage.dart';
 import 'package:Loan360Cloud/ui/docsUpload.dart';
@@ -7,8 +9,12 @@ import 'package:Loan360Cloud/ui/fieldInvestigation.dart';
 import 'package:Loan360Cloud/ui/homeScreen.dart';
 import 'package:Loan360Cloud/ui/jaguar.dart';
 import 'package:Loan360Cloud/ui/leadManagement.dart';
+import 'package:Loan360Cloud/ui/loginScreen.dart';
+import 'package:Loan360Cloud/ui/logoutScreen.dart';
+import 'package:Loan360Cloud/ui/mobileUpdate.dart';
 import 'package:Loan360Cloud/ui/promiseToPay.dart';
 import 'package:Loan360Cloud/ui/receiptForm.dart';
+import 'package:Loan360Cloud/ui/receiptLoadDetail.dart';
 import 'package:Loan360Cloud/ui/reports.dart';
 import 'package:Loan360Cloud/ui/setting.dart';
 import 'package:Loan360Cloud/ui/statementOfAccount.dart';
@@ -17,8 +23,10 @@ import 'package:Loan360Cloud/ui/updateApplication.dart';
 import 'package:Loan360Cloud/ui/updateMobile.dart';
 import 'package:Loan360Cloud/ui/updatePhoto&Sign.dart';
 import 'package:Loan360Cloud/ui/update_FI.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -64,15 +72,15 @@ class _DrawerState extends State<DrawerScreen> {
                               ///
 
                               if(category.elementAt(index).id == 1){
-                                Get.to(()=> UpdateAddress());
+                                Get.to(()=> UpdateAddress(visible: false));
                               } else if(category.elementAt(index).id == 2){
-                                Get.to(()=> UpdatePhotoSign());
+                                Get.to(()=> UpdatePhotoSign(visible: false));
 
                               } else if(category.elementAt(index).id == 3){
                                 Get.to(()=> FieldInvestigation());
 
                               }else if(category.elementAt(index).id == 4){
-                                Get.to(()=> StatementOfAccount());
+                                Get.to(()=> StatementOfAccount(ScreenRoute: false,));
                               } else if(category.elementAt(index).id == 5){
                                 Get.to(()=> DocsUpload());
 
@@ -82,14 +90,17 @@ class _DrawerState extends State<DrawerScreen> {
                               }else if(category.elementAt(index).id == 8){
                                 Get.to(()=> Setting());
                               } else if(category.elementAt(index).id == 9){
-                                Get.to(()=> UpdateMobile());
+                                Get.to(()=> MobileUpdate(visible: false));
+
+                                //  Get.to(()=> UpdateMobile());
                               } else if(category.elementAt(index).id == 10){
-                                Get.to(()=> Jaguar());
+                                Get.to(()=> HomeScreen());
                               }else if(category.elementAt(index).id == 11){
                                 Get.to(()=> DealerMessage());
 
                               }else if(category.elementAt(index).id == 12){
-                                Get.to(()=> ReceiptForm());
+                                Get.to(()=> ReceiptLoanDetail(receiptTitleData: false,));
+                                //Get.to(()=> ReceiptForm());
 
                               } else if(category.elementAt(index).id == 13){
                                 Get.to(()=> DueList());
@@ -98,8 +109,44 @@ class _DrawerState extends State<DrawerScreen> {
                               }else if(category.elementAt(index).id == 16) {
                                 Get.to(()=> CashDeposit());
                               } else if(category.elementAt(index).id == 17) {
+                                 showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return LogoutScreen();
+                                    /*  return AlertDialog(
+                                        title: Text('Log Out',style: textStyle.Heading2,),
+                                        content: Text('Do you want to Logout?',style: textStyle.Regular),
+                                        actions: <Widget>[
+                                         InkWell(
+                                              onTap: () {
+                                                Get.back();
 
-                                //  Get.to(() => Logout());
+                                              },
+                                              child: Container(
+                                                  width: 100,
+                                                  padding: EdgeInsets.all(10),
+
+                                                  child: Text('No',style: textStyle.Regular,)),
+                                          ),
+
+
+                                          InkWell(
+                                            onTap: () {
+                                              signOut(); // dismisses only the dialog and returns true
+                                              Future.delayed(Duration(seconds: 2),()async{
+                                                GetStorage box = GetStorage();
+                                                box.write("token",null);
+                                                Get.offAll(() => LoginScreen());
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 100,
+                                               child: Text('Yes',style: textStyle.Regular)),
+                                          ),
+                                        ],
+                                      );*/
+                                    },
+                                  );
                               }
 
 
@@ -179,13 +226,8 @@ class _DrawerState extends State<DrawerScreen> {
                                   break;
 
 
-
                                // case 17:
                                  // Get.to(()=>LogoutS)
-
-
-
-
                               }
                               */
 
@@ -217,6 +259,15 @@ class _DrawerState extends State<DrawerScreen> {
             ),
         );
     }
+  signOut() async {
+    try {
+      await Amplify.Auth.signOut();
+
+
+    } on AuthException catch (e) {
+      print(e.message);
+    }
+  }
 }
 
 List<DrawerModel> category = [

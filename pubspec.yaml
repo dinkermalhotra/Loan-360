@@ -27,7 +27,18 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.0.3
   fl_chart: ^0.55.1
-
+  amplify_flutter: ^0.6.9
+  amplify_auth_cognito: ^0.6.9
+  amplify_authenticator: ^0.2.3
+  geolocator: ^9.0.2
+  intl: ^0.17.0
+  http: ^0.13.5
+  bluetooth_print:
+  permission_handler: ^10.2.0
+  #flutter_blue: ^0.8.0
+  #esc_pos_utils: ^1.1.0
+  image_picker: ^0.8.6
+  easy_signature_pad:
 
 
 
@@ -92,6 +103,9 @@ flutter:
     - assets/mic.png
     - assets/cross.png
     - assets/voice.png
+    - assets/loanIcon.png
+    - assets/check-mark.png
+    - assets/draw_icon.png
 
 
 

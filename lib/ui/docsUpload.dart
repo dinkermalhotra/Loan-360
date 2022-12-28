@@ -18,7 +18,7 @@ class _DocsUploadState extends State<DocsUpload> {
 
   static List<Customer>? _dropdownCustomer = [];
   static List<Address>? _dropdownAddress = [];
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+  GlobalKey<ScaffoldState> docUpload = GlobalKey();
   final formKey =  GlobalKey<FormState>();
 
   // var controller = new MaskedTextController(mask: '(000) 000 0000');
@@ -47,18 +47,18 @@ class _DocsUploadState extends State<DocsUpload> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key:  _key,
+      key:  docUpload,
       drawer: Drawer(
         child: DrawerScreen(),
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: appBar(appBarName:CommonText.docsUpload.toString(),onPressed: (){
-          if (_key.currentState != null) {
-            if (_key.currentState!.isDrawerOpen) {
-              _key.currentState!.closeDrawer();
+          if (docUpload.currentState != null) {
+            if (docUpload.currentState!.isDrawerOpen) {
+              docUpload.currentState!.closeDrawer();
             } else {
-              _key.currentState!.openDrawer();
+              docUpload.currentState!.openDrawer();
             }
           }
         }),
@@ -89,7 +89,7 @@ class _DocsUploadState extends State<DocsUpload> {
                           borderRadius: BorderRadius.all(Radius.circular(40)),
                           borderSide: BorderSide(color:AppColor.GreyColor, width: 1.0),
                         ),
-                        hintText: 'Loan A/c#',
+                        hintText: CommonText.loanAc,
                       ),
                     ),
                   ),
@@ -206,14 +206,9 @@ class _DocsUploadState extends State<DocsUpload> {
                       ),
                     ),
                   )
-
                 ],
               ),
-            )
-
-
-
-
+            ),
           ],
         ),
       ),

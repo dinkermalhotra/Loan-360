@@ -15,7 +15,7 @@ class DocumentAttachment extends StatefulWidget {
 class _DocumentAttachmentState extends State<DocumentAttachment> {
 
   static List<Address>? _dropdownAddress = [];
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+  GlobalKey<ScaffoldState> _documentAttachkey = GlobalKey();
   final formKey = new GlobalKey<FormState>();
 
   // var controller = new MaskedTextController(mask: '(000) 000 0000');
@@ -101,8 +101,6 @@ class _DocumentAttachmentState extends State<DocumentAttachment> {
                       },
                     ),
                   )
-
-
                 ],
               ),
             ),
@@ -159,9 +157,7 @@ class _DocumentAttachmentState extends State<DocumentAttachment> {
                         );
                       },
                     ),
-                  )
-
-
+                  ),
                 ],
               ),
             ),
@@ -184,10 +180,8 @@ class _DocumentAttachmentState extends State<DocumentAttachment> {
                         border: InputBorder.none,
                         hintText: '0',
                         hintStyle: TextStyle(color: Colors.black),
-
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey)
-                          //   borderSide:  BorderSide(color: ),
                         ),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey)
@@ -196,7 +190,6 @@ class _DocumentAttachmentState extends State<DocumentAttachment> {
                       ),
                     ),
                   ),
-
                 ],
               ) ,
             ),
@@ -211,14 +204,12 @@ class _DocumentAttachmentState extends State<DocumentAttachment> {
                   Container(
                     // width: 320,
                     child: const TextField(
-                      //controller: emailController,
                       obscureText: true,
                       textAlign: TextAlign.left,
                       decoration:  InputDecoration(
                         border: InputBorder.none,
                         hintText: '0',
                         hintStyle: TextStyle(color: Colors.black),
-
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey)
                           //   borderSide:  BorderSide(color: ),
@@ -230,7 +221,6 @@ class _DocumentAttachmentState extends State<DocumentAttachment> {
                       ),
                     ),
                   ),
-
                 ],
               ) ,
             ),

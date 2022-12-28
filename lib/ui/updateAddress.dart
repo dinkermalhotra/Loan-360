@@ -4,12 +4,20 @@ import 'package:Loan360Cloud/common/commonText.dart';
 import 'package:Loan360Cloud/common/drawer.dart';
 import 'package:Loan360Cloud/main.dart';
 import 'package:Loan360Cloud/ui/homeScreen.dart';
+import 'package:Loan360Cloud/ui/statementOfAccountSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:Loan360Cloud/common/textStyle.dart';
+
+Map? decodeMap;
+bool? Visible= false;
 class UpdateAddress extends StatefulWidget {
 
+  UpdateAddress({Key? key,Map? decode,bool? visible}){
+  decodeMap = decode;
+  Visible = visible;
+  }
 
   @override
   State<UpdateAddress> createState() => _UpdateAddressState();
@@ -18,8 +26,7 @@ class UpdateAddress extends StatefulWidget {
 class _UpdateAddressState extends State<UpdateAddress> {
   static List<Customer>? _dropdownCustomer = [];
   static List<Address>? _dropdownAddress = [];
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final formKey = new GlobalKey<FormState>();
+ GlobalKey<ScaffoldState> updateKey = GlobalKey();
 
  // var controller = new MaskedTextController(mask: '(000) 000 0000');
   Customer? _dropdownCustomerValue;
@@ -42,41 +49,109 @@ class _UpdateAddressState extends State<UpdateAddress> {
     _dropdownAddressValue = _dropdownAddress![0];
     _dropdownCustomerValue = _dropdownCustomer![0];
 
-    //_dropdownValue = _dropdownItems![0];
   }
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size.width;
     return Scaffold(
-      key:  _key,
+      key:  updateKey,
       drawer: Drawer(
         child: DrawerScreen(),
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: appBar(appBarName:CommonText.updateAddressTitle.toString(),onPressed: (){
-          if (_key.currentState != null) {
-            if (_key.currentState!.isDrawerOpen) {
-              _key.currentState!.closeDrawer();
+          if (updateKey.currentState != null) {
+            if (updateKey.currentState!.isDrawerOpen) {
+              updateKey.currentState!.closeDrawer();
             } else {
-              _key.currentState!.openDrawer();
+              updateKey.currentState!.openDrawer();
             }
           }
         }),
       ),
 
       body: Container(
-       // margin: EdgeInsets.only(left: 10,right: 10),
         child: Column(
           children: [
             Container(
-             margin: EdgeInsets.only(left: 15,right: 15,top:30,),
-         //   margin: EdgeInsets.only(top:30,),
+              margin: EdgeInsets.only(left: 15,right: 15,top:30,),
               width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                  //  margin: EdgeInsets.only(left: 10,right: 10,top:30,),
+                    width: size * 0.77,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColor.GreyColor),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(30.0)
+                      ),
+                    ),
+                    child:Row(
+                      children: [
+                        Container(
+                            height: 50,
+                            width: 50,
+                            child: Icon(Icons.search, color: Colors.grey,size: 25,)
+                        ),
+
+                        Container(
+                          height: 50,
+                          width: size*0.6,
+                          child: TextField(
+                            readOnly: true,
+
+                            decoration:const InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintText: 'Loan A/c#',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){
+                      Get.to(()=> StatementAccountSearch(callback: "updateAddress",));
+
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      child: Icon(Icons.search, color: Colors.white,size: 30,),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColor.ThemeColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+              visible:Visible!,
+              child: Container(
+                margin: EdgeInsets.only(left: 20,top:10,),
+                alignment: Alignment.centerLeft,
+                child:  decodeMap!=null
+                    ? Text("Customer Name: "+ decodeMap!['loanUserName']?? '',style: textStyle.RegularBold.copyWith(color: Colors.black))
+                    : Text("",style: textStyle.RegularBold.copyWith(color: Colors.black)),
+              ),
+            ),
+           /* Container(
+             margin: EdgeInsets.only(left: 15,right: 15,top:30,),
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
                     width: 300,
                     height: 50,
                     child: TextField(
@@ -94,6 +169,7 @@ class _UpdateAddressState extends State<UpdateAddress> {
                       ),
                     ),
                   ),
+
                   Container(
                     width: 50,
                     height: 50,
@@ -105,7 +181,8 @@ class _UpdateAddressState extends State<UpdateAddress> {
                   ),
                 ],
               ),
-            ),
+            ),*/
+
             _buildCustomer(),
             _buildAddress(),
             Container(
@@ -185,21 +262,10 @@ class _UpdateAddressState extends State<UpdateAddress> {
                        ),
                      ),
                    ),
-                 )
-
+                 ),
                ],
              ),
-          )
-
-
-          /*  Container(
-              margin:EdgeInsets.only(top: 20,left: 10),
-              alignment: Alignment.topLeft,
-              child: Text(CommonText.customer.toUpperCase()),
-            )*/
-
-
-
+          ),
           ],
         ),
       ),
@@ -346,7 +412,6 @@ class _UpdateAddressState extends State<UpdateAddress> {
       ),
     );
   }
-
 }
 
 

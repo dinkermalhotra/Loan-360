@@ -4,9 +4,11 @@ import 'package:Loan360Cloud/common/commonAppBar.dart';
 import 'package:Loan360Cloud/common/commonDialog.dart';
 import 'package:Loan360Cloud/common/commonText.dart';
 import 'package:Loan360Cloud/common/drawer.dart';
+import 'package:Loan360Cloud/controller/cashDepositController.dart';
 import 'package:Loan360Cloud/ui/updateAddress.dart';
 import 'package:flutter/material.dart';
 import 'package:Loan360Cloud/common/textStyle.dart';
+import 'package:get/get.dart';
 
 class CashDeposit extends StatefulWidget {
   const CashDeposit({Key? key}) : super(key: key);
@@ -16,15 +18,10 @@ class CashDeposit extends StatefulWidget {
 }
 
 class _CashDepositState extends State<CashDeposit> {
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+  GlobalKey<ScaffoldState> _cashDepositkey = GlobalKey();
+  CashDepositController cashDepositController = Get.put(CashDepositController());
 
-  final _customer = new TextEditingController();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
 
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +29,15 @@ class _CashDepositState extends State<CashDeposit> {
       drawer: Drawer(
         child: DrawerScreen(),
       ),
-      key:  _key,
+      key:  _cashDepositkey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: appBar(appBarName:CommonText.cashDeposit.toString(),onPressed: (){
-          if (_key.currentState != null) {
-            if (_key.currentState!.isDrawerOpen) {
-              _key.currentState!.closeDrawer();
+          if (_cashDepositkey.currentState != null) {
+            if (_cashDepositkey.currentState!.isDrawerOpen) {
+              _cashDepositkey.currentState!.closeDrawer();
             } else {
-              _key.currentState!.openDrawer();
+              _cashDepositkey.currentState!.openDrawer();
             }
           }
         }),
@@ -86,7 +83,6 @@ class _CashDepositState extends State<CashDeposit> {
                 Container(
                   // width: 320,
                   child: const TextField(
-                    //controller: emailController,
                     obscureText: true,
                     textAlign: TextAlign.left,
                     decoration:  InputDecoration(
@@ -105,7 +101,6 @@ class _CashDepositState extends State<CashDeposit> {
                     ),
                   ),
                 ),
-
               ],
             ) ,
           ),
@@ -122,16 +117,13 @@ class _CashDepositState extends State<CashDeposit> {
                 ),
 
                 Container(
-                  // width: 320,
                   child: const TextField(
-                    //controller: emailController,
                     obscureText: true,
                     textAlign: TextAlign.left,
                     decoration:  InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter Remark',
                       hintStyle: TextStyle(color: Colors.black),
-
                       enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey)
                       ),
@@ -141,7 +133,6 @@ class _CashDepositState extends State<CashDeposit> {
                     ),
                   ),
                 ),
-
               ],
             ) ,
           ),
@@ -180,7 +171,6 @@ class _CashDepositState extends State<CashDeposit> {
 
                     },
                     child: Container(
-
                       margin: EdgeInsets.only(right: 5),
                       padding: EdgeInsets.all(17),
                       width: double.infinity,
@@ -189,14 +179,10 @@ class _CashDepositState extends State<CashDeposit> {
                             colors: [
                              AppColor.ThemeColor,
                               Colors.lightBlueAccent
-                              // const Color(0xFF3366FF),
-
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-
-                            ),
-                       // color: AppColor.ThemeColor,
+                        ),
                         borderRadius: BorderRadius.all(Radius.circular(40)),
                       ),
 
@@ -211,16 +197,13 @@ class _CashDepositState extends State<CashDeposit> {
 
                     },
                     child: Container(
-                      //decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [AppColor.ThemeColor, AppColor.ThemeColor.withOpacity(0.5)])),
                       margin: EdgeInsets.only(left: 5),
                       padding: EdgeInsets.all(17),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        // gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [AppColor.ThemeColor, AppColor.ThemeColor.withOpacity(0.5)])
                         color: AppColor.LighGreyColor,
                         borderRadius: BorderRadius.all(Radius.circular(40)),
                       ),
-
                       child: Text(CommonText.reset.toUpperCase(),textAlign: TextAlign.center, style: textStyle.RegularBold.copyWith(color: Colors.black,fontWeight: FontWeight.w700,),
                       ),
                     ),
@@ -229,9 +212,6 @@ class _CashDepositState extends State<CashDeposit> {
               ],
             ),
           ),
-
-
-
         ],
       ),
     );
@@ -246,207 +226,209 @@ class _CashDepositState extends State<CashDeposit> {
         children: [
          Container(
            alignment: Alignment.topLeft,
-             child: Text(CommonText.depositHistory,style: textStyle.RegularBold.copyWith(color: Colors.black)),
-
+             child: Text(CommonText.depositHistory,style: textStyle.RegularBold.copyWith(color: Colors.black),
+             ),
          ),
 
 
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-               itemCount: 4,
-              shrinkWrap: true,
-              itemBuilder:(context,index){
-                return Container(
-                  margin: EdgeInsets.only(top: 10,),
-                  child: Card(
-                    elevation: 10,
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        children: [
+          Obx(()=>(
+                cashDepositController.loading.value?
+             Center(
+                child: CircularProgressIndicator(),
+             ):
+            cashDepositController.cashDepositModel.object!=null?
+            ListView.builder(
+               physics: NeverScrollableScrollPhysics(),
+               itemCount:cashDepositController.cashDepositModel.object!.length,
+               shrinkWrap: true,
+               itemBuilder:(context,index){
+                  return Container(
+                    margin: EdgeInsets.only(top: 10,),
+                    child: Card(
+                      elevation: 10,
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
 
-
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-
-                                Expanded(
-                                  child: Container(
-                                    child: Text(CommonText.amount,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(CommonText.amount,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                    ),
                                   ),
-                                ),
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text("45,000",style: textStyle.Regular.copyWith(color: Colors.black),),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(cashDepositController.cashDepositModel.object!.elementAt(index).amount.toString()??"",style: textStyle.Regular.copyWith(color: Colors.black),),
+                                    ),
                                   ),
-                                )
-
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
 
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
 
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-
-                                Expanded(
-                                  child: Container(
-                                    child: Text(CommonText.depositOn,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(CommonText.depositOn,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                    ),
                                   ),
-                                ),
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text('27/Aug/2021 17:26PM',style: textStyle.Regular.copyWith(color: Colors.black),),
-                                  ),
-                                )
+                                  Expanded(
+                                    child: Container(
+                                      child: Text('27/Aug/2021 17:26PM',style: textStyle.Regular.copyWith(color: Colors.black),),
+                                    ),
+                                  )
 
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
 
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text(CommonText.remarks,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(CommonText.remarks,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                    ),
                                   ),
-                                ),
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text("By amt deposit in PNB Bank",style: textStyle.Regular.copyWith(color: Colors.black),),
-                                  ),
-                                )
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(cashDepositController.cashDepositModel.object!.elementAt(index).remarks.toString(),style: textStyle.Regular.copyWith(color: Colors.black),),
+                                    ),
+                                  )
 
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
 
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text(CommonText.verified,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(CommonText.verified,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                    ),
                                   ),
-                                ),
 
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.topLeft,
-                                    //margin: EdgeInsets.only(right: 20),
-                                    child: Image.asset("assets/verified.png",height: 20,width: 20,),
-                                    //child: Text(CommonText.rupeeSign+'1,38,000',style: textStyle.Regular.copyWith(color: Colors.black),),
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.topLeft,
+                                      //margin: EdgeInsets.only(right: 20),
+                                      child: cashDepositController.cashDepositModel.object!.elementAt(index).verified!?Image.asset("assets/verified.png",height: 20,width: 20,):SizedBox(),
+                                      //child: Text(CommonText.rupeeSign+'1,38,000',style: textStyle.Regular.copyWith(color: Colors.black),),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
 
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text(CommonText.verifiedBy,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(CommonText.verifiedBy,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                    ),
                                   ),
-                                ),
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text(CommonText.rupeeSign+'10,000',style: textStyle.Regular.copyWith(color: Colors.black),),
-                                  ),
-                                )
+                                  Expanded(
+                                    child: Container(
+                                      child: cashDepositController.cashDepositModel.object!.elementAt(index).verifiedBy.toString()==""?Text('',style: textStyle.Regular.copyWith(color: Colors.black)):Text(cashDepositController.cashDepositModel.object!.elementAt(index).verifiedBy.toString(),style: textStyle.Regular.copyWith(color: Colors.black),),
+                                    ),
+                                  )
 
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
 
 
 
 
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text(CommonText.verifiedOn,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(CommonText.verifiedOn,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                    ),
                                   ),
-                                ),
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text('27/Aug/2021 17:54PM',style: textStyle.Regular.copyWith(color:Colors.black),),
-                                  ),
-                                )
+                                  Expanded(
+                                    child: Container(
+                                     child:  cashDepositController.cashDepositModel.object!.elementAt(index).verifiedOn.toString()==""?Text("",style: textStyle.Regular.copyWith(color: Colors.black)):Text(cashDepositController.cashDepositModel.object!.elementAt(index).verifiedOn.toString(),style: textStyle.Regular.copyWith(color: Colors.black),),
+                                      // child: Text('27/Aug/2021 17:54PM',style: textStyle.Regular.copyWith(color:Colors.black),),
+                                    ),
+                                  )
 
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
 
 
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text(CommonText.file,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(CommonText.file,style: textStyle.Regular.copyWith(color: AppColor.GreyColor),),
+                                    ),
                                   ),
-                                ),
 
-                                Expanded(
-                                  child: Container(
-                                    child: Text('202110099.jpg',style: textStyle.Regular.copyWith(color: AppColor.ThemeColor),),
-                                  ),
-                                )
-
-                              ],
+                                  Expanded(
+                                    child: Container(
+                                      child: Text(cashDepositController.cashDepositModel.object!.elementAt(index).fileName.toString(),style: textStyle.Regular.copyWith(color: AppColor.ThemeColor),),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
 
-
-
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }),
-
-
-
-
-
+                  );
+                })
+            : Center(
+              child: Container(
+                child: Text("No Data",style: textStyle.Regular.copyWith(color: AppColor.GreyColor)),
+              ),
+            )
+           ),
+          ),
 
         ],
       ),

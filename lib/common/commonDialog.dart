@@ -73,21 +73,14 @@ Widget customFileSelectDialog(){
 
           ),
         ),
-        /*Container(
-          child: Divider(
-            thickness: ,
-          ),
-        )*/
-
-
-
       ],
     ),
 
   );
 }
 
-Widget customGalleryDialog(){
+
+Widget customSignDialog(VoidCallback onCamera,VoidCallback onGallery,VoidCallback onSingature){
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -98,41 +91,66 @@ Widget customGalleryDialog(){
 
 
     child: Column(
-      // mainAxisAlignment: MainAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           child: Text('Select Photo ',style: textStyle.Heading2.copyWith(),),
 
         ),
-        Container(
-          margin: EdgeInsets.only(top: 20,left: 10),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset('assets/camera.png',height: 20,width: 20,),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Text('Camera ',style: textStyle.Regular.copyWith(),),
+        InkWell(
+          onTap: onCamera,
+          child: Container(
+            margin: EdgeInsets.only(top: 20,left: 10),
+            child: Row(
+              children: [
+                Container(
+                  child: Image.asset('assets/camera.png',height: 20,width: 20,),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text('Camera ',style: textStyle.Regular.copyWith(),),
 
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
-        Container(
-          margin: EdgeInsets.only(top: 20,left: 10),
-          child: Row(
-            children: [
-              Container(
-                child: Image.asset('assets/update_photo.png',height: 20,width: 20,color: Colors.black,),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Text('Gallery',style: textStyle.Regular.copyWith(),),
 
-              ),
-            ],
+        InkWell(
+          onTap: onGallery,
+          child: Container(
+            margin: EdgeInsets.only(top: 20,left: 10),
+            child: Row(
+              children: [
+                Container(
+                  child: Image.asset('assets/update_photo.png',height: 20,width: 20,color: Colors.black,),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text('Gallery',style: textStyle.Regular.copyWith(),),
+
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        InkWell(
+          onTap: onSingature,
+          child: Container(
+            margin: EdgeInsets.only(top: 20,left: 10),
+            child: Row(
+              children: [
+                Container(
+                  child: Image.asset('assets/draw_icon.png',height: 20,width: 20,color: Colors.black,),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text('Signature',style: textStyle.Regular.copyWith(),),
+
+                ),
+              ],
+            ),
           ),
         ),
 
@@ -156,14 +174,88 @@ Widget customGalleryDialog(){
 
           ),
         ),
-        /*Container(
-          child: Divider(
-            thickness: ,
+      ],
+    ),
+
+  );
+
+}
+
+Widget customGalleryDialog(VoidCallback onCamera,VoidCallback onGallery ){
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: Colors.black,width: 1),
+    ),
+    padding: EdgeInsets.all(10),
+
+
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          child: Text('Select Photo ',style: textStyle.Heading2.copyWith(),),
+
+        ),
+        InkWell(
+          onTap: onCamera,
+          child: Container(
+            margin: EdgeInsets.only(top: 20,left: 10),
+            child: Row(
+              children: [
+                Container(
+                  child: Image.asset('assets/camera.png',height: 20,width: 20,),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text('Camera ',style: textStyle.Regular.copyWith(),),
+
+                ),
+              ],
+            ),
           ),
-        )*/
+        ),
 
+        InkWell(
+          onTap: onGallery,
+          child: Container(
+            margin: EdgeInsets.only(top: 20,left: 10),
+            child: Row(
+              children: [
+                Container(
+                  child: Image.asset('assets/update_photo.png',height: 20,width: 20,color: Colors.black,),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text('Gallery',style: textStyle.Regular.copyWith(),),
 
+                ),
+              ],
+            ),
+          ),
+        ),
 
+        Container(
+          margin: EdgeInsets.only(top: 20),
+          // width: 320,
+          child: Divider(
+            thickness: 2.0,
+            color: AppColor.LighGreyColor,
+          ),
+        ),
+
+        InkWell(
+          onTap: (){
+            Get.back();
+          },
+          child: Container(
+            margin: EdgeInsets.only(top: 10),
+            alignment: Alignment.center,
+            child: Text('CANCEL ',style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor),),
+
+          ),
+        ),
       ],
     ),
 

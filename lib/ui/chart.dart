@@ -1,10 +1,16 @@
+import 'dart:convert';
+
+import 'package:Loan360Cloud/authManager/authManager.dart';
 import 'package:Loan360Cloud/common/appColor.dart';
 import 'package:Loan360Cloud/common/commonAppBar.dart';
 import 'package:Loan360Cloud/common/commonText.dart';
 import 'package:Loan360Cloud/common/drawer.dart';
 import 'package:Loan360Cloud/common/textStyle.dart';
+import 'package:Loan360Cloud/model/branchByLogin.dart';
+import 'package:Loan360Cloud/model/getCompanyByLogin.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class Chart extends StatefulWidget {
@@ -15,7 +21,24 @@ class Chart extends StatefulWidget {
 }
 
 class _ChartState extends State<Chart> {
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+  GlobalKey<ScaffoldState> _key = GlobalKey();
+  AuthenticationManager authenticationManager = Get.find();
+  CompanyByLoginModel dropdownCompanyValue = new CompanyByLoginModel();
+  String? data = '';
+  String? nextData = '';
+  //String? dropdownfinancialYearModel;
+
+  BranchByLoginModel dropdownbranchByLoginModel = new BranchByLoginModel();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +68,7 @@ class _ChartState extends State<Chart> {
                 Container(
                   margin: EdgeInsets.only(left: 10),
                   alignment: Alignment.centerLeft,
-                  child: Text('Welcome to S Singh',style: textStyle.Heading2,),
+                  child: Text(CommonText.welcome+" "+authenticationManager!.getUserName().toString(),style: textStyle.Heading2,),
                 ),
                 Container(
                   width: double.infinity,
@@ -63,26 +86,26 @@ class _ChartState extends State<Chart> {
                             Container(
                               padding: EdgeInsets.only(left: 8,right: 8,top: 12,bottom: 12),
                                   color: AppColor.LightBlueColor,
-                                  child: Text('Months',style: textStyle.Regular.copyWith(color: Colors.white)),
+                                  child: Text(CommonText.month,style: textStyle.Regular.copyWith(color: Colors.white)),
 
                             ),
                             Container(
                               padding: EdgeInsets.only(left: 8,right: 8,top: 12,bottom: 12),
                                   color: AppColor.ThemeColor,
-                                  child: Text('Target',style: textStyle.Regular.copyWith(color: Colors.white)),
+                                  child: Text(CommonText.target,style: textStyle.Regular.copyWith(color: Colors.white)),
 
                             ),
                              Container(
                                     //padding: EdgeInsets.all(10),
                                  padding: EdgeInsets.only(left: 8,right: 8,top: 12,bottom: 12),
                                   color: AppColor.LightBlueColor,
-                                  child:  Text('Archievement',style: textStyle.Regular.copyWith(color: Colors.white))
+                                  child:  Text(CommonText.archievement,style: textStyle.Regular.copyWith(color: Colors.white))
                                 ),
 
                              Container(
                                padding: EdgeInsets.only(left: 8,right: 8,top: 12,bottom: 12),
                                   color: AppColor.ThemeColor,
-                                  child: Text('Comments',style: textStyle.Regular.copyWith(color: Colors.white)),
+                                  child: Text(CommonText.comments,style: textStyle.Regular.copyWith(color: Colors.white)),
 
                             ),
 

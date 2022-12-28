@@ -2,37 +2,56 @@ import 'package:Loan360Cloud/common/appColor.dart';
 import 'package:Loan360Cloud/common/commonAppBar.dart';
 import 'package:Loan360Cloud/common/commonText.dart';
 import 'package:Loan360Cloud/common/drawer.dart';
+import 'package:Loan360Cloud/controller/promiseController.dart';
 import 'package:Loan360Cloud/ui/addPromise_To_Pay.dart';
 import 'package:flutter/material.dart';
 import 'package:Loan360Cloud/common/textStyle.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class PromiseToPay extends StatefulWidget {
   const PromiseToPay({Key? key}) : super(key: key);
-
   @override
   State<PromiseToPay> createState() => _PromiseToPayState();
 }
 
 class _PromiseToPayState extends State<PromiseToPay> {
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
-  TextEditingController dateTo =  TextEditingController();
+  GlobalKey<ScaffoldState> promiseToPaykey = GlobalKey();
+  TextEditingController Todate =  TextEditingController();
+  TextEditingController Fromdate =  TextEditingController();
+  TextEditingController loanSearch =  TextEditingController();
+  PromiseController promiseController = Get.put(PromiseController());
+  DateTime? selectedDate;
+  DateTime _date = DateTime.now();
+  var dob;
+
+  bool Date = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key:  _key,
+      key:  promiseToPaykey,
       drawer: Drawer(
         child: DrawerScreen(),
+      ),
+      floatingActionButton:  FloatingActionButton(
+        elevation: 50,
+        hoverColor: Colors.red,
+        autofocus: true,
+        onPressed: () {
+          Get.to(()=>AddPromiseToPay());
+
+        },
+        child: Icon(Icons.add),
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: appBar(appBarName:CommonText.promiseToPay.toString(),onPressed: (){
-          if (_key.currentState != null) {
-            if (_key.currentState!.isDrawerOpen) {
-              _key.currentState!.closeDrawer();
+          if (promiseToPaykey.currentState != null) {
+            if (promiseToPaykey.currentState!.isDrawerOpen) {
+              promiseToPaykey.currentState!.closeDrawer();
             } else {
-              _key.currentState!.openDrawer();
+              promiseToPaykey.currentState!.openDrawer();
             }
           }
         }),
@@ -76,20 +95,28 @@ class _PromiseToPayState extends State<PromiseToPay> {
                                   Container(
                                     width: 320,
                                     child: TextField(
-                                      controller: dateTo,
+                                      readOnly: true,
+                                      controller: Fromdate,
                                       textAlign: TextAlign.left,
-                                      decoration:  InputDecoration(
+                                      decoration: const InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Lorem Ipsum dolar',
-                                        hintStyle: TextStyle(color: Colors.black),
+                                        hintText: '01-01-1888',
+                                        hintStyle: TextStyle(color: Colors.grey),
                                         enabledBorder: InputBorder.none,
                                         focusedBorder: InputBorder.none
                                       ),
                                     ),
                                   ),
 
-                                  Container(
-                                    child: Image.asset('assets/calendar.png',height: 20,width: 20,),
+                                  InkWell(
+                                    onTap: (){
+                                        datePicker(true);
+                                      // datePicker(Fromdate.text);
+
+                                    },
+                                    child: Container(
+                                      child: Image.asset('assets/calendar.png',height: 20,width: 20,),
+                                    ),
                                   )
                               ],
                             ),
@@ -120,7 +147,6 @@ class _PromiseToPayState extends State<PromiseToPay> {
                           Container(
                             alignment: Alignment.topLeft,
                             child: Text(CommonText.toDate,style: textStyle.RegularBold.copyWith(color: AppColor.GreyColor)),
-
                           ),
                           Container(
                             child: Icon(
@@ -144,20 +170,26 @@ class _PromiseToPayState extends State<PromiseToPay> {
                                 Container(
                                   width: 320,
                                   child: TextField(
-                                    controller: dateTo,
+                                    readOnly: true,
+                                    controller: Todate,
                                     textAlign: TextAlign.left,
-                                    decoration:  InputDecoration(
+                                    decoration: const InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Lorem Ipsum dolar',
-                                        hintStyle: TextStyle(color: Colors.black),
+                                        hintText: '01-01-1888',
+                                        hintStyle: TextStyle(color: Colors.grey),
                                         enabledBorder: InputBorder.none,
                                         focusedBorder: InputBorder.none
                                     ),
                                   ),
                                 ),
 
-                                Container(
-                                  child: Image.asset('assets/calendar.png',height: 20,width: 20,),
+                                InkWell(
+                                  onTap: (){
+                                    datePicker(false);
+                                  },
+                                  child: Container(
+                                    child: Image.asset('assets/calendar.png',height: 20,width: 20,),
+                                  ),
                                 )
                               ],
                             ),
@@ -173,9 +205,6 @@ class _PromiseToPayState extends State<PromiseToPay> {
                         ],
                       ),
                     ),
-
-
-
                   ],
                 ) ,
               ),
@@ -200,17 +229,15 @@ class _PromiseToPayState extends State<PromiseToPay> {
                               children: [
                                 Container(
                                   width: 320,
-                                  child: const TextField(
-                                    //controller: emailController,
-                                    obscureText: true,
+                                  child:  TextField(
+                                    controller: loanSearch,
                                     textAlign: TextAlign.left,
-                                    decoration:  InputDecoration(
+                                    decoration: const InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: 'Lorem Ipsum dolar',
-                                      hintStyle: TextStyle(color: Colors.black),
+                                      hintText: 'Loan A/c#',
+                                        hintStyle: TextStyle(color: Colors.grey),
                                       enabledBorder:  InputBorder.none,
                                       focusedBorder:  InputBorder.none
-
 
                                     ),
                                   ),
@@ -229,9 +256,6 @@ class _PromiseToPayState extends State<PromiseToPay> {
                         ],
                       ),
                     ),
-
-
-
                   ],
                 ) ,
               ),
@@ -246,17 +270,16 @@ class _PromiseToPayState extends State<PromiseToPay> {
                       child: InkWell(
                         onTap: (){
 
+                        promiseController.statmentSearch(fromDate:Fromdate.text,toDate: Todate.text,searchLoanNo: loanSearch.text);
                         },
                         child: Container(
-
                           margin: EdgeInsets.only(right: 5),
                           padding: EdgeInsets.all(17),
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: AppColor.ThemeColor,
                             borderRadius: BorderRadius.all(Radius.circular(40)),
-                          ),
-
+                           ),
                           child: Text(CommonText.search.toUpperCase(),textAlign: TextAlign.center, style: textStyle.RegularBold.copyWith(color: Colors.white,fontWeight: FontWeight.w700,),
                           ),
                         ),
@@ -286,7 +309,9 @@ class _PromiseToPayState extends State<PromiseToPay> {
                 ),
               ),
 
-              ListView.builder(
+
+
+             /* ListView.builder(
                   padding: EdgeInsets.zero,
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -387,8 +412,6 @@ class _PromiseToPayState extends State<PromiseToPay> {
                                           child: Text('01/19/2017  17:54 PM',style: textStyle.Regular.copyWith(color: Colors.black),),
                                         ),
                                       )
-
-
                                     ],
                                   ),
                                 ),
@@ -451,9 +474,8 @@ class _PromiseToPayState extends State<PromiseToPay> {
                                                 child: Image.asset("assets/map.png",height: 20,width: 20,),
                                               ),
                                               Container(
-                                                child: Text(CommonText.map,style: textStyle.Regular.copyWith(color: Colors.red),),
-
-
+                                                child: Text(CommonText.map,style: textStyle.Regular.copyWith(color: Colors.red),
+                                                ),
                                               )
                                             ],
 
@@ -465,8 +487,6 @@ class _PromiseToPayState extends State<PromiseToPay> {
                               ],
                             ),
                           ),
-
-
                       ),
                     );
                   }),
@@ -481,7 +501,7 @@ class _PromiseToPayState extends State<PromiseToPay> {
 
                   child: Image.asset("assets/add.png",height: 100,width: 100,fit:BoxFit.fitHeight),
                 ),
-              )
+              )*/
               
 
 
@@ -493,5 +513,29 @@ class _PromiseToPayState extends State<PromiseToPay> {
       ),
 
     );
+  }
+  datePicker(bool date) async {
+    selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      helpText: 'Campaign Date Picker'.toUpperCase(),
+    );
+    if (selectedDate != null && selectedDate != _date) {
+      setState(() {
+        _date = selectedDate!;
+        dob = DateFormat('yyyy-MM-dd').format(_date); //change date format on your need
+        print('Date');
+        print(dob.toString(),);
+
+        if(date){
+          Fromdate.text = dob;
+        }else{
+          Todate.text = dob;
+        }
+
+      });
+    }
   }
 }

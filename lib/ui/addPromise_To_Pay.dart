@@ -3,6 +3,8 @@ import 'package:Loan360Cloud/common/appColor.dart';
 import 'package:Loan360Cloud/common/commonAppBar.dart';
 import 'package:Loan360Cloud/common/commonText.dart';
 import 'package:Loan360Cloud/common/drawer.dart';
+import 'package:Loan360Cloud/controller/promiseController.dart';
+import 'package:Loan360Cloud/model/subjectPromise.dart';
 import 'package:Loan360Cloud/ui/updateAddress.dart';
 import 'package:flutter/material.dart';
 import 'package:Loan360Cloud/common/textStyle.dart';
@@ -18,38 +20,36 @@ class AddPromiseToPay extends StatefulWidget {
 
 class _AddPromiseToPayState extends State<AddPromiseToPay> {
 
+  PromiseController promiseController = Get.put(PromiseController());
   static List<Address>? _dropdownAddress = [];
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final formKey = new GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> AddPromiseKey = GlobalKey();
 
   // var controller = new MaskedTextController(mask: '(000) 000 0000');
 
   String?  _errorText;
-  bool isMan = false;
-  bool isWoman = false;
   final _address = TextEditingController();
   Address? _dropdownAddressValue;
-  // TextEditingController phoneController = new TextEditingController();
 
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _dropdownAddress!.add(Address(addressCode: 'Select'));
-    _dropdownAddressValue = _dropdownAddress![0];
 
-    //_dropdownValue = _dropdownItems![0];
+    /*_dropdownAddress!.add(Address(addressCode: 'Select'));
+    _dropdownAddressValue = _dropdownAddress![0];*/
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key:  _key,
+      key:  AddPromiseKey,
       appBar: AppBar(
          title: Container(
-             alignment: Alignment.topLeft,
-             child: Text(CommonText.updateSmall.toString(),style: textStyle.Heading2.copyWith(),)),
+           alignment: Alignment.topLeft,
+           child: Text(CommonText.updateSmall.toString(),style: textStyle.Heading2.copyWith(),),
+         ),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -77,27 +77,27 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                                     hintStyle: TextStyle(color: Colors.black),
                                     errorText: _errorText,
                                   ),
-                                  isEmpty: _dropdownAddress == null,
-                                  child:  DropdownButton<Address>(
+                                  isEmpty: promiseController.dropdown == null,
+                                  child:  DropdownButton<SubjectPromiseModel>(
                                     icon: Icon(
                                       Icons.keyboard_arrow_down,
                                       color:AppColor.GreyColor,
                                       size: 20.09,
                                     ),
-                                    value: _dropdownAddressValue,
+                                    value: promiseController!.dropdown,
                                     isDense: true,
-                                    onChanged: (Address? newValue) {
+                                    onChanged: (SubjectPromiseModel? newValue) {
                                       print('value change');
                                       print(newValue);
                                       setState(() {
-                                        _dropdownAddressValue = newValue;
-                                        _address.text = _dropdownAddressValue!.addressCode!;
+                                        promiseController!.dropdown = newValue;
+                                       // _address.text = _dropdownAddressValue!.addressCode!;
                                       });
                                     },
-                                    items: _dropdownAddress!.map((Address value) {
-                                      return DropdownMenuItem<Address>(
+                                    items: promiseController.subjectPromiseData!.map((SubjectPromiseModel value) {
+                                      return DropdownMenuItem<SubjectPromiseModel>(
                                         value: value,
-                                        child: Text(value!.addressCode.toString()),
+                                        child: Text(value!.name.toString()),
                                       );
                                     }).toList(),
                                   ),
@@ -107,9 +107,7 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                           );
                         },
                       ),
-                    )
-
-
+                    ),
                   ],
                 ),
               ),
@@ -165,9 +163,7 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                           );
                         },
                       ),
-                    )
-
-
+                    ),
                   ],
                 ),
               ),
@@ -179,7 +175,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                   children: [
                     WithoutAstrickText(CommonText.important),
                     Container(
-                      // margin: EdgeInsets.only(top:5,),
                       child: FormField(
                         builder: (FormFieldState state) {
                           return DropdownButtonHideUnderline(
@@ -223,9 +218,7 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                           );
                         },
                       ),
-                    )
-
-
+                    ),
                   ],
                 ),
               ),
@@ -321,7 +314,7 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                             borderRadius: BorderRadius.all(Radius.circular(40)),
                             borderSide: BorderSide(color:AppColor.GreyColor, width: 1.0),
                           ),
-                          hintText: 'Loan A/c#',
+                          hintText: CommonText.loanAc,
                         ),
                       ),
                     ),
@@ -454,7 +447,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                 ),
               ),
 
-
               Container(
                 height: 70,
                 margin: EdgeInsets.only(left: 15,right: 15,top:20,),
@@ -513,7 +505,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                 ),
               ),
 
-
               Container(
                 height: 70,
                 margin: EdgeInsets.only(left: 15,right: 15,top:20,),
@@ -565,9 +556,7 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                           );
                         },
                       ),
-                    )
-
-
+                    ),
                   ],
                 ),
               ),
@@ -611,7 +600,7 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                 margin: EdgeInsets.only(left: 15,right: 15,top:20,),
                 child: Column(
                   children: [
-                    WithoutAstrickText("REMARK"),
+                    WithoutAstrickText(CommonText.remark),
                     Container(
                       // margin: EdgeInsets.only(top:5,),
                       child: FormField(
@@ -658,8 +647,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                         },
                       ),
                     )
-
-
                   ],
                 ),
               ),
@@ -706,7 +693,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
 
                     CommonAstrickText(CommonText.type),
                     Container(
-                      // width: 320,
                       child: const TextField(
                         //controller: emailController,
                         obscureText: true,
@@ -740,7 +726,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
 
                     CommonAstrickText(CommonText.remarks),
                     Container(
-                      // width: 320,
                       child: const TextField(
                         //controller: emailController,
                         obscureText: true,
@@ -800,7 +785,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                 ) ,
               ),
 
-
               Container(
                 height: 70,
                 margin: EdgeInsets.only(left: 15,right: 15,top:20,),
@@ -809,7 +793,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
 
                     WithoutAstrickText(CommonText.receiptNo),
                     Container(
-                      // width: 320,
                       child: const TextField(
                         //controller: emailController,
                         obscureText: true,
@@ -869,7 +852,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                 ) ,
               ),
 
-
               Container(
                 height: 70,
                 margin: EdgeInsets.only(left: 15,right: 15,top:20,),
@@ -903,9 +885,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                   ],
                 ) ,
               ),
-
-
-
 
               Container(
                 height: 70,
@@ -958,13 +937,10 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                           );
                         },
                       ),
-                    )
-
-
+                    ),
                   ],
                 ),
               ),
-
 
               Container(
                 margin: EdgeInsets.only(top: 30,left: 15,right: 15,bottom: 30),
@@ -1014,13 +990,6 @@ class _AddPromiseToPayState extends State<AddPromiseToPay> {
                   ],
                 ),
               )
-
-
-
-
-
-
-
 
             ],
           ),
